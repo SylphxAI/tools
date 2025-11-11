@@ -1,6 +1,9 @@
 <div align="center">
 
-# MCP Tools 🛠️
+# ⚠️ DEPRECATED - MCP Tools 🛠️
+
+> **This repository is archived and no longer maintained.**
+> See [DEPRECATED.md](./DEPRECATED.md) for details.
 
 **Modular MCP server toolkit - 12+ tools for AI agents**
 
