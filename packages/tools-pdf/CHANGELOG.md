@@ -1,5 +1,15 @@
 # @sylphlab/mcp-pdf-core
 
+## 0.7.2
+
+### Patch Changes
+
+- 87b16e6: fix(tools-pdf): pin mupdf to version 1.3.6 to resolve import errors
+
+  The latest version of mupdf (2.x) changed its package exports and no longer exports './mupdfjs', causing ERR_PACKAGE_PATH_NOT_EXPORTED errors. This fix pins the mupdf dependency to ^1.3.6, which is the last known working version.
+
+  Fixes #20
+
 ## 0.7.1
 
 ### Patch Changes
