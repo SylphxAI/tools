@@ -20,7 +20,9 @@
     "test": "pnpm build && vitest run",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish"
+    "changeset:publish": "changeset publish",
+    "version-packages": "changeset version",
+    "release": "pnpm run build && changeset publish"
   },
   "keywords": ["mcp", "model-context-protocol", "tools", "ai", "agents", "typescript", "monorepo"],
   "packageManager": "pnpm@10.8.1",
