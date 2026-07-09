@@ -10,7 +10,11 @@ This repository has been **archived** and is **no longer maintained**.
 
 ## Migration
 
-This project has been deprecated. Please contact the maintainers for alternative solutions.
+This project has been deprecated. New MCP product work belongs in the active
+Sylphx MCP family repositories, not in this archive. See
+[`PROJECT.md`](./PROJECT.md) and
+[`docs/roadmap/mcp-tools-archive-handoff.md`](./docs/roadmap/mcp-tools-archive-handoff.md)
+for the successor direction.
 
 ## Archive Date
 

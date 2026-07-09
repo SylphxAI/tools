@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "repo": "SylphxAI/tools",
+    "name": "MCP Tools Archive",
+    "lifecycle": "archived",
+    "layer": "historical-tooling",
+    "policyPool": "agent-tool",
+    "summary": "Archived TypeScript MCP tools monorepo retained for historical source and package migration context.",
+    "goals": [
+      "Preserve historical MCP package source and release context.",
+      "Direct new MCP product work to active Rust-native repositories.",
+      "Avoid reviving the deprecated TypeScript adapter monorepo as a product surface."
+    ],
+    "nonGoals": [
+      "Add new MCP servers in this monorepo.",
+      "Perform an in-place Rust migration of the archive.",
+      "Use tools-adaptor-mcp as the target runtime adapter for new products."
+    ]
+  },
+  "boundaries": {
+    "owns": [
+      {
+        "name": "historical-source",
+        "description": "Deprecated TypeScript MCP packages and release history."
+      }
+    ],
+    "doesNotOwn": [
+      "Active Reader, repository, filesystem, consultation, or Mission Control product roadmaps.",
+      "New Rust-native MCP runtime architecture.",
+      "Current npm release policy for active successor products."
+    ],
+    "publicSurfaces": [
+      {
+        "type": "documentation",
+        "name": "Project overview",
+        "location": "PROJECT.md"
+      },
+      {
+        "type": "documentation",
+        "name": "Deprecation notice",
+        "location": "DEPRECATED.md"
+      },
+      {
+        "type": "documentation",
+        "name": "Archive roadmap",
+        "location": "docs/roadmap/mcp-tools-archive-handoff.md"
+      }
+    ],
+    "allowedDependencies": [
+      {
+        "repo": "SylphxAI/doctrine",
+        "surface": "Documentation, ADR, and MCP family governance standards",
+        "direction": "downward"
+      }
+    ],
+    "forbiddenCouplings": [
+      "No active product may depend on this archived repository as its runtime strategy.",
+      "No new MCP server package may be added here.",
+      "No package README in this archive may override active product roadmaps."
+    ]
+  },
+  "documentation": {
+    "adr": {
+      "path": "docs/adr/",
+      "status": "present"
+    },
+    "specs": {
+      "path": "docs/roadmap/",
+      "status": "present"
+    },
+    "catalog": {
+      "path": ".doctrine/project.json",
+      "status": "present"
+    }
+  },
+  "delivery": {
+    "ciModel": "legacy-ci",
+    "requiredContexts": ["Lint, Test & Build"],
+    "deployPath": "none",
+    "productionProof": "Archived repository; no production deployment target.",
+    "recoveryClass": "source-revertable",
+    "deployable": false
+  },
+  "adoption": {
+    "status": "archived",
+    "gaps": [
+      {
+        "id": "successor-mapping",
+        "description": "Historical packages should be mapped to active successor repositories before any capability is revived.",
+        "owner": "SylphxAI/tools",
+        "target": "archive handoff"
+      }
+    ]
+  }
+}
