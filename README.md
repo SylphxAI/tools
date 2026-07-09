@@ -3,7 +3,9 @@
 # ⚠️ DEPRECATED - MCP Tools 🛠️
 
 > **This repository is archived and no longer maintained.**
-> See [DEPRECATED.md](./DEPRECATED.md) for details.
+> See [DEPRECATED.md](./DEPRECATED.md), [PROJECT.md](./PROJECT.md), and
+> [docs/roadmap/mcp-tools-archive-handoff.md](./docs/roadmap/mcp-tools-archive-handoff.md)
+> for the current archive handoff.
 
 **Modular MCP server toolkit - 12+ tools for AI agents**
 

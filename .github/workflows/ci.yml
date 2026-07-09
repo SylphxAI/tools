@@ -8,7 +8,8 @@ on:
 
 jobs:
   lint_test_build:
-    # This job runs on PRs and pushes to main for basic checks
+    # This archived repository only runs validation. It must not version or
+    # publish packages from pull requests.
     name: Lint, Test & Build
     runs-on: ubuntu-latest
     steps:
@@ -17,76 +18,16 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for changeset versioning
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22 # Use Node.js 22 LTS
-          cache: 'pnpm'
+      - name: Validate archive project manifest
+        run: python3 -m json.tool .doctrine/project.json >/dev/null
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Check markdown and workflow diff whitespace
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git diff --check "${{ github.event.pull_request.base.sha }}" HEAD
+          else
+            git show --check --format= HEAD
+          fi
 
-      - name: Validate Changeset
-        uses: changesets/action@v1
-        # Only run this step on pull requests
-        if: github.event_name == 'pull_request'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Add linting step later if needed
-      # - name: Lint
-      #   run: pnpm run lint # Assumes a lint script exists
-
-      - name: Build
-        run: pnpm run build # Runs 'turbo run build'
-
-      - name: Test
-        run: pnpm run test # Runs 'turbo run test'
-
-  release:
-    # This job runs only on pushes to the main branch
-    name: Release Packages
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    needs: lint_test_build # Ensure checks pass before releasing
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Fetch all history for changeset versioning
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22 # Use Node.js 22 LTS
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build packages
-        run: pnpm run build # Build necessary for publish
-
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          # Publish packages to NPM publicly
-          publish: pnpm publish -r --access public --no-git-checks
-          # Commit and Title are not needed when publishing directly
-          # version: pnpm changeset version # Handled by publish command implicitly
-          # commit: "chore: version packages for release"
-          # title: "chore: version packages for release"
-          # Optional: If using a custom bot user for commits
-          # user.name: "github-actions[bot]"
-          # user.email: "github-actions[bot]@users.noreply.github.com"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # NPM_TOKEN required only if 'publish' command is used above
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Assert archive ADR naming
+        run: test -z "$(find docs/adr -name 'ADR-DRAFT-*' -print -quit)"
