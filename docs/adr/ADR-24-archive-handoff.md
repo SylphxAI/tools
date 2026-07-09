@@ -1,6 +1,6 @@
-# ADR-DRAFT: Archive Handoff For Legacy MCP Tools
+# ADR-24: Archive Handoff For Legacy MCP Tools
 
-- Status: draft
+- Status: proposed
 - Date: 2026-07-09
 - Owner: SylphxAI/tools
 
